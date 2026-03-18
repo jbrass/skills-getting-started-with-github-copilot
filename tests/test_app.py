@@ -16,7 +16,12 @@ def test_signup_and_unregister():
     activity = "Chess Club"
 
     # Ensure not already registered
-    client.post(f"/activities/{activity}/unregister?email={test_email}")
+    cleanup_response = client.post(f"/activities/{activity}/unregister?email={test_email}")
+    assert cleanup_response.status_code in (200, 400)
+    if cleanup_response.status_code == 200:
+        assert f"Removed {test_email}" in cleanup_response.json()["message"]
+    else:
+        assert "not registered" in cleanup_response.json()["detail"]
 
     # Sign up
     response = client.post(f"/activities/{activity}/signup?email={test_email}")
