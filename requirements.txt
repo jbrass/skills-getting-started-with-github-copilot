@@ -1,2 +1,5 @@
 fastapi
+pytest
+httpx
 uvicorn
+pydantic[email]
