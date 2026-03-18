@@ -1,5 +1,6 @@
 from fastapi.testclient import TestClient
 from src.app import app
+import uuid
 
 client = TestClient(app)
 
@@ -12,7 +13,7 @@ def test_get_activities():
 
 def test_signup_and_unregister():
     # Use a unique email for testing
-    test_email = "pytestuser@mergington.edu"
+    test_email = f"pytestuser+{uuid.uuid4()}@mergington.edu"
     activity = "Chess Club"
 
     # Ensure not already registered
